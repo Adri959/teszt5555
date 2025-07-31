@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Foglalás</h1>
+
+    {% comment %} 
+    Ha két órán belüli a foglalás ne engedje és írja ki az "uzenet"-et
+    {% endcomment %}
+    {% if uzenet %}
+        <h1>{{uzenet}}</h1>
+    {% elif  not idopontok %}
+        <h1>Elfogytak az időpontok</h1>   
+        
+    {% else%}
+    <form action={% url 'app:foglal' %} method='post'>
+        {% csrf_token %}
+
+        {% comment %} <label for="nev">Foglaló neve: </label>
+        <input type="text" name="nev"> {% endcomment %}
+
+        <label for="szolgaltatas">Szolgáltatás: </label>
+        <select name="szolgaltatas">
+            {% for szolgaltatas in szolgaltatasok %}
+                <option value={{szolgaltatas.nev}}>{{szolgaltatas.nev}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+
+        <label for="idopont">Időpont:</label>
+        <select name="idopont" id="idopont">
+            {% for idopont in idopontok %}
+                <option value="{{idopont}}">{{idopont}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <button type="submit">Foglalás</button>
+        
+
+    </form>
+    {% endif %}
+{% endblock content %}
+    

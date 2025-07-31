@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'profilepage.css' %}">
+<h1>Foglalásaim:</h1>
+
+
+<div>
+    {% for foglalas in foglalasok %}
+    <form action={% url 'app:foglalastorles' %} method='post'>
+        <input type="hidden" name="foglalasid" value={{foglalas.id}} />
+        {% csrf_token %}
+        <div class="torleskartya">
+        <p>{{foglalas.idopont}} - {{foglalas.szolgaltatas.nev}}</p>
+        <button type="submit">Törlés</button>
+        </div>
+    </form>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Belépés</h1>
+<form method="post" action={% url 'app:belepes' %}>
+    {% csrf_token %}
+    <label for="username">Felhasználónév: </label>
+    <input type="text" name="username" id="">
+
+    <br>
+    <br>
+
+    <label for="email">Email: </label>
+    <input type="text" name="email" id="">
+
+    <br>
+    <br>
+
+    <label for="password">Jelszó: </label>
+    <input type="password" name="password">
+
+    <br>
+    <br>
+
+    <input type="submit" value="Belépés">
+
+</form>
+<a href={% url 'app:regisztracio' %}>Regisztráció</a>
+{% for message in messages %}
+<p>{{message}}</p>
+{% endfor %}
+{% endblock %}

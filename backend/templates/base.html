@@ -1,0 +1,41 @@
+{% load static%}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weboldal</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+</head>
+<body>
+    <div class="topnav">
+        <div class="left-links">
+            <a href={% url 'app:index' %}>Főoldal</a>     
+            <a href={% url 'app:szolgaltatasok' %}>Szolgáltatások</a>
+            <a href={% url 'app:foglalas' %}>Foglalás</a>
+            <a href={% url 'app:rolunk' %}>Rólunk</a>
+        </div>
+
+        <div class='righ-links'>
+        {% if request.user.is_authenticated %}
+            <a href={% url 'app:profilepage' %}>{{request.user}}</a>
+        {% endif %}
+        {% if not request.user.is_authenticated %}
+        <a href={% url 'app:regisztracio' %}>Regisztráció</a>
+        {% endif %}
+        
+
+
+
+        {% if request.user.is_authenticated %}
+            <a href={% url 'app:kilepes' %}>Kilépés</a>
+        {% else %}
+            <a href={% url 'app:belepes' %}>Belépés</a>
+        {% endif %}
+        
+        </div>
+    </div>
+{% block content %}
+{% endblock %}
+</body>
+</html>
