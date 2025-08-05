@@ -17,17 +17,13 @@
         </div>
 
         <div class='righ-links'>
-        {% if request.user.is_authenticated %}
-            <a href={% url 'app:profilepage' %}>{{request.user}}</a>
-        {% endif %}
+
         {% if not request.user.is_authenticated %}
         <a href={% url 'app:regisztracio' %}>Regisztráció</a>
         {% endif %}
         
-
-
-
         {% if request.user.is_authenticated %}
+            <a href={% url 'app:profilepage' %}>{{request.user}}</a>
             <a href={% url 'app:kilepes' %}>Kilépés</a>
         {% else %}
             <a href={% url 'app:belepes' %}>Belépés</a>
