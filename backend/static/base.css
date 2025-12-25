@@ -1,4 +1,4 @@
-
+/* 
 body{
   background-color: rgba(255, 230, 89, 0.299);
   font-family: monospace;
@@ -7,7 +7,7 @@ body{
     background-color: #333;
     overflow: hidden;
     display: flex;
-    justify-content: space-between; /* Az elemek két szélére kerülnek */
+    justify-content: space-between;
     align-items: center;
     background-color: #333;
     padding: 10px;
@@ -31,10 +31,10 @@ body{
   
 .left-links {
   display: flex;
-  gap: 15px; /* Távolság a bal oldali linkek között */
+  gap: 15px; 
 }
 
 .right-links {
   display: flex;
-  gap: 15px; /* Távolság a jobb oldali linkek között */
-}
+  gap: 15px; 
+} */

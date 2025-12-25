@@ -87,13 +87,7 @@ def foglal(request):
         foglalas = Foglalas(idopont=idopont, szolgaltatas=Szolgaltatasobj, user=userobj)
         foglalas.save()
         
-    return redirect('/app')
-
-def szolgaltatasok(request):
-    return render(request, 'szolgaltatasok.html')
-
-def rolunk(request):
-    return render(request, 'rolunk.html')
+    return redirect('/app/sikeresfoglalas')
 
 def regisztracio(request):
     if request.method == "POST":
@@ -122,7 +116,7 @@ def regisztracio(request):
         
         newuser = User.objects.create_user(username=username, email=email, password=password)
         newuser.save()
-        return redirect('/app/sikeresreg')
+        return redirect('/app/foglalas')
 
 
     return render(request, 'regisztracio.html')
@@ -136,7 +130,7 @@ def belepes(request):
         user = authenticate(request,username=username,password=password,email=email)
         if user is not None:
             login(request,user)
-            return redirect('/app')
+            return redirect('/app/foglalas')
         else:
             messages.error(request, "Hibás bejelentkezési adatok")
 
@@ -165,3 +159,6 @@ def foglalastorles(request):
         torlendo.delete()
         
     return redirect('/app/profilepage')
+
+def sikeresfoglalas(request):
+    return render(request,'sikeresfoglalas.html')

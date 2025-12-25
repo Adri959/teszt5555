@@ -7,8 +7,6 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('foglalas/', views.foglalas, name="foglalas"),
     path('foglal/', views.foglal, name="foglal"),
-    path('szolgaltatasok/', views.szolgaltatasok, name="szolgaltatasok"),
-    path('rolunk/', views.rolunk, name="rolunk"),
 
 
     path('belepes/', views.belepes, name="belepes"),
@@ -18,6 +16,7 @@ urlpatterns = [
     path('foglalastorles/', views.foglalastorles, name="foglalastorles"),
 
     path('sikeresreg/', views.sikeresreg, name="sikeresreg"),
+    path('sikeresfoglalas/', views.sikeresfoglalas, name="sikeresfoglalas"),
 
     path('api/', views.SzabadIdopontokApi, name="SzabadIdopontokApi"),
 
