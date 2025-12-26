@@ -27,6 +27,7 @@ class Idopont(models.Model):
 class Foglalas(models.Model):
     idopont = models.OneToOneField(Idopont, on_delete=models.CASCADE)  # Egy időpontra csak egy foglalás lehet
     szolgaltatas = models.ForeignKey(Szolgaltatas, on_delete=models.CASCADE)
+    tapasztalat = models.CharField(max_length=100,null=True,blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 

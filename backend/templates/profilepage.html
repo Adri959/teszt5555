@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<section id="input-side">
 {% load static %}
     <nav class="navbar">
             <div class="nav-content">
                 <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
                 <div class="menu-open"><i>open</i></div> 
                 <div class="menu-close"><i>close</i></div>       
-                <ul class="navbar-menu">
+                <ul class="nav-right">
                     <a href={% url 'app:foglalas' %}><li>Jelentkezés</li></a>
                     {% if request.user.is_authenticated %}
                     <li><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
@@ -22,20 +23,25 @@
     <br><br><br>
 
 {% if foglalasok %}
-<h1>Foglalásaim:</h1>
-<div>
-    {% for foglalas in foglalasok %}
-    <form action={% url 'app:foglalastorles' %} method='post'>
-        <input type="hidden" name="foglalasid" value={{foglalas.id}} />
-        {% csrf_token %}
-        <div class="torleskartya">
-        <p>{{foglalas.idopont}} - {{foglalas.szolgaltatas.nev}}</p>
-        <button type="submit">Törlés</button>
-        </div>
-    </form>
-    {% endfor %}
+<div class="input-content">
+    <h5>Foglalásaim:</h5>
+    <div class="middle-position">
+        {% for foglalas in foglalasok %}
+        <form action={% url 'app:foglalastorles' %} method='post'>
+            <input type="hidden" name="foglalasid" value={{foglalas.id}} />
+            {% csrf_token %}
+            <div class="torleskartya">
+            <p>{{foglalas.idopont}} - {{foglalas.szolgaltatas.nev}}</p> <br>
+            <button type="submit" class="submit-button">Törlés</button> <br> <br>
+            </div>
+        </form>
+        {% endfor %}
+        
 {% else %}
-    <p>Jelenleg nincs foglalásod.</p>
+    <h5>Jelenleg nincs foglalásod.</h5>
 {% endif %}
 </div>
+</div>
+
+</section>
 {% endblock %}

@@ -1,12 +1,13 @@
 
 {% extends 'base.html' %}
 {% block content %}
+<section id="input-side">
     <nav class="navbar">
             <div class="nav-content">
                 <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
                 <div class="menu-open"><i>open</i></div> 
                 <div class="menu-close"><i>close</i></div>       
-                <ul class="navbar-menu">
+                <ul class="nav-right">
                     {% if request.user.is_authenticated %}
                     <li><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
                     <li></li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
@@ -18,33 +19,37 @@
             </div>
     </nav>
     <br><br><br>
-<h1>Belépés</h1>
+<div class="input-content">
+<h5>Belépés</h5>
 {% comment %} Itt fontos, hogy a name attribútum maradjon meg az inputoknál {% endcomment %}
 <form method="post" action={% url 'app:belepes' %}>
     {% csrf_token %}
-    <label for="username">Felhasználónév: </label>
-    <input type="text" name="username" id="">
+    <label for="username">Felhasználónév: </label> <br>
+    <input type="text" name="username" id="" class="input-field">
 
     <br>
     <br>
 
-    <label for="email">Email: </label>
-    <input type="text" name="email" id="">
+    <label for="email">Email: </label> <br>
+    <input type="text" name="email" id="" class="input-field">
 
     <br>
     <br>
 
-    <label for="password">Jelszó: </label>
-    <input type="password" name="password">
+    <label for="password">Jelszó: </label> <br>
+    <input type="password" name="password" class="input-field">
 
     <br>
     <br>
 
-    <input type="submit" value="Belépés">
+    <input type="submit" value="Belépés" class="submit-button">
 
 </form>
-<a href={% url 'app:regisztracio' %}>Regisztráció</a>
+<br>
+<a href={% url 'app:regisztracio' %} class="link">Regisztráció</a>
 {% for message in messages %}
 <p>{{message}}</p>
 {% endfor %}
+</div>
+</section>
 {% endblock %}

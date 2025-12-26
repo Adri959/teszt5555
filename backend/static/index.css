@@ -53,6 +53,13 @@ h4{background: linear-gradient(45deg, #a1512e 0%,#c77e35 60%, #cf965c 80%);
     color: transparent;
     
 }
+h5{ 
+    color: var(--mytextcolor2);
+    font-size: 3rem;
+    text-align: center;
+    padding-bottom: 10%;
+
+}
 img{
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
@@ -63,10 +70,13 @@ span{
     color: #b35304;
 }
 
+
+
 /* ALL SCREEN ALL SCREEN ALL SCREEN ALL SCREEN ALL SCREEN ALL SCREEN ALL SCREEN ALL SCREEN */
 
 /* hero */
 
+    
     .hero-container{
         background-size: cover;
         /* background-position: 60% 40%; */
@@ -277,6 +287,59 @@ span{
         color: #3b2a1c;
     }
 
+#input-side{
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+    }
+
+.input-content{
+    color: var(--mytextcolor2);
+    max-width: 600px;
+    
+    
+}
+.middle-position{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.middle-position button{
+    margin-bottom: 2rem;
+}
+.input-field{
+    color: var(--mytextcolor);
+    background-color: #684e38c2;
+    border-radius: 10px;
+}
+.input-field:focus{
+    outline: none;
+    border-color: #d7b899ee;
+    background-color: #915727c2;
+    
+}
+
+.submit-button{
+        background-color: #4b3d2a;
+        color: #e0d6c1;
+        border: 2px solid #d7b899;
+        border-radius: 10px;
+        padding: 12px 30px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0;
+        align-self: center;
+        }
+.submit-button:hover {
+        background-color: #d7b899;
+        color: #3b2a1c;}
+
 .contact-container{
         background-size: cover;
         /* background-position: 60% 40%; */
@@ -286,6 +349,9 @@ span{
         color: var(--mytextcolor2);
         
     }
+.link{
+    color: var(--mytextcolor2);
+}
 
 /* PORTRAIT PORTRAIT PORTRAIT PORTRAIT PORTRAIT PORTRAIT PORTRAIT PORTRAIT PORTRAIT PORTRAIT*/
 
@@ -581,6 +647,13 @@ span{
     text-align: center;
 }
 
+#input-side{
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+    background-image: url('./images/input-side-portrait.jpg');
+}
+
 /* contact */
 
 .contact-container{
@@ -631,24 +704,36 @@ span{
     }
     .nav-content{
         display: flex;
-        justify-content: start;
+        justify-content: space-between;
         align-items: center;
-        width: 70%;
+        width: 100%;
+        padding: 0% 2%;
     }
-    .logo{
-        margin-right: 10rem;
-        margin-left: 1rem;
-    }
-    .navbar-menu{
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
+    /* .logo {} */
+        /* width: 20%; */
+        /* background-color: green;  */
     .menu-open{
         display: none;        
     }
     .menu-close{
         display: none;
+    }
+    .navbar-menu{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* width: 60%; */
+    }
+    .nav-right{
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        /* width: 20%; */
+        
+    }
+    .nav-right li a{
+    padding: 14px 16px;
+    /* background-color: greenyellow; */
     }
 
 /* hero landscape */
@@ -938,6 +1023,28 @@ span{
     font-size: 1.5rem;
     
 }
+
+#input-side{
+    display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;    
+        background-image: url('./images/input-side-landscape.jpg');
+        background-position: 70% 40%;
+}
+.input-content{
+    margin-left: 17%;
+    background-color: #16100c9c;
+    padding: 4%;
+}
+.input-field{
+    font-size: 1rem;
+    width: 300px;
+    padding: 10px;   
+
+}
+
+
 
 /* contact landscape */
 

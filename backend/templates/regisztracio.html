@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+<section id="input-side">
     <nav class="navbar">
             <div class="nav-content">
                 <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
                 <div class="menu-open"><i>open</i></div> 
                 <div class="menu-close"><i>close</i></div>       
-                <ul class="navbar-menu">
+                <ul class="nav-right">
                     {% if request.user.is_authenticated %}
                     <li><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
                     <li></li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
@@ -17,38 +18,43 @@
             </div>
     </nav>
     <br><br><br>
-<h1>Regisztráció</h1>
+
+<div class="input-content">
+<h5>Regisztráció</h5>
 {% comment %} Itt fontos, hogy a name attribútum maradjon meg az inputoknál {% endcomment %}
-<form method="post" action={% url 'app:regisztracio' %}>
+<form method="post" action={% url 'app:regisztracio' %} >
     {% csrf_token %}
-    <label for="username">Felhasználónév: </label>
-    <input type="text" name="username" required>
+    <label for="username">Felhasználónév: </label> <br>
+    <input type="text" name="username" required class="input-field">
 
     <br>
     <br>
 
-    <label for="email">Email: </label>
-    <input type="text" name="email" required>
+    <label for="email">Email: </label> <br>
+    <input type="text" name="email" required class="input-field">
 
     <br>
     <br>
 
-    <label for="password">Jelszó: </label>
-    <input type="password" name="password" required>
+    <label for="password">Jelszó: </label> <br>
+    <input type="password" name="password" required class="input-field">
 
     <br>
     <br>
 
-    <label for="password2">Jelszó (mégegyszer): </label>
-    <input type="password" name="password2" required>
+    <label for="password2">Jelszó (mégegyszer): </label> <br>
+    <input type="password" name="password2" required class="input-field">
 
     <br>
     <br>
+    <br>
 
-    <input type="submit" value="Regisztrálás">
+    <input type="submit" value="Regisztrálás" class="submit-button">
 
 </form>
 {% for message in messages %}
     <p>{{message}}</p>
 {% endfor %}
+</div>
+</section>
 {% endblock %}

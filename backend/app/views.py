@@ -57,7 +57,7 @@ def foglal(request):
         
         szolgaltatasnev = request.POST.get('szolgaltatas')        
         idopont = request.POST.get('idopont')
-
+        tapasztalat = request.POST.get('tapasztalat')
         most = datetime.datetime.now()
         ketoramulva = most + datetime.timedelta(hours=2)
 
@@ -84,7 +84,7 @@ def foglal(request):
         idopont.foglalt = True
         idopont.save()
     
-        foglalas = Foglalas(idopont=idopont, szolgaltatas=Szolgaltatasobj, user=userobj)
+        foglalas = Foglalas(idopont=idopont, szolgaltatas=Szolgaltatasobj, user=userobj, tapasztalat=tapasztalat)
         foglalas.save()
         
     return redirect('/app/sikeresfoglalas')

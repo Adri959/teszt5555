@@ -14,14 +14,20 @@
                     <li><a href="#opinions">Vélemények</a></li>  
                     <li><a href="#application">Jelentkezés</a></li>                    
                     <li><a href="#contact">Kapcsolat</a></li>
+                    
+                </ul> 
+                <ul class="nav-right">
                     {% if request.user.is_authenticated %}
-                    <li><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
+                    <li ><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
                     <li></li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
                     {% else %}
-                    <li><a href={% url 'app:belepes' %}>Belépés</a></li>
+                    <li> <a href={% url 'app:belepes' %}>Belépés</a></li>
                     <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li>
                     {% endif %}
-                </ul> 
+                </ul>
+                
+                        
+                
             </div>
     </nav>
     <section id="hero"></section>
