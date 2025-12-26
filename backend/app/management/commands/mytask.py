@@ -4,8 +4,10 @@ import datetime
 import pandas as pd
 import os
 
-#Windows feladatütemezőből futtatni majd .bat fájlal minden nap
-#Az utolsó időpont után ajánlott lefuttatni
+#Lementi a múltbéli foglalásokat excelbe, majd törli azokat.
+
+# Windows feladatütemezőből futtatni majd .bat fájlal minden nap.
+# Az utolsó időpont után ajánlott lefuttatni.
 
 class Command(BaseCommand):
     
@@ -13,11 +15,11 @@ class Command(BaseCommand):
         maidatum = datetime.date.today()
         tegnapidatum = maidatum - datetime.timedelta(days=1)
 
-        #Kitörli az időpontokat amik régebbiek a mai dátumnál
+        # Kitörli az időpontokat amik régebbiek a mai dátumnál
         idopontok = Idopont.objects.all()
         foglalasok = Foglalas.objects.all()
 
-        #kimenteni excelbe, hogy ki és mikor ment mire, aztán kitörli
+        # Kimenteni excelbe, hogy ki és mikor ment mire, aztán kitörli
         data = {
             "Email":[],
             "Dátum":[],
@@ -37,7 +39,7 @@ class Command(BaseCommand):
         df = pd.DataFrame(data)
         print(df)
         #print(os.getcwd())
-        df.to_excel(f"{os.getcwd()}\{tegnapidatum}.xlsx",index=False)
+        df.to_excel(f"{os.getcwd()}\excelek\{tegnapidatum}.xlsx",index=False)
 
         for idopont in idopontok:
             if(idopont.datum < maidatum):
