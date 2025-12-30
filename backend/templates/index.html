@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+    <nav class="navbar">
+            <div class="nav-mobile">
+                <div class="nav-mobile-top">
+                    <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
+                    <button class="nav-toggle">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button> 
+                </div> 
+                <div class="nav-mobile-main">           
+                    <ul class="mobile-menu">
+                        <li><a href="#introduction">Bemutatkozás</a></li>
+                        <li><a href="#sourdough">Miért kovásszal?</a></li>
+                        <li><a href="#course">Oktatás</a></li>
+                        <li><a href="#opinions">Vélemények</a></li>  
+                        <li><a href="#application">Jelentkezés</a></li>                    
+                        <li><a href="#contact">Kapcsolat</a></li>                    
+                    </ul> 
+                    <ul class="mobile-nav-bottom">
+                        {% if request.user.is_authenticated %}
+                        <li ><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
+                        <li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
+                        {% else %}
+                        <li> <a href={% url 'app:belepes' %}>Belépés</a></li>
+                        <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li>
+                        {% endif %}
+                    </ul>
+                </div>  
+            </div>
+
+            <div class="nav-content">                
+                <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
+                
+                             
+                <ul class="navbar-menu">
+                    <li><a href="#introduction">Bemutatkozás</a></li>
+                    <li><a href="#sourdough">Miért kovásszal?</a></li>
+                    <li><a href="#course">Oktatás</a></li>
+                    <li><a href="#opinions">Vélemények</a></li>  
+                    <li><a href="#application">Jelentkezés</a></li>                    
+                    <li><a href="#contact">Kapcsolat</a></li>                    
+                </ul> 
+                <ul class="nav-right">
+                    {% if request.user.is_authenticated %}
+                    <li ><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
+                    <li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
+                    {% else %}
+                    <li> <a href={% url 'app:belepes' %}>Belépés</a></li>
+                    <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+    </nav>
+    <section id="hero"></section>
+        
+        <div class="hero-container">            
+            <div class="hero-content">
+                <div class="hero-titles">                    
+                    <h2 class="kovasz">KOVÁSZ</h2>
+                    <h2 class="mentor">MENTOR</h2>                    
+                </div>
+                <div class="hero-line"></div>
+                <p class="hero-subtitle">
+                    Személyre szabott oktatás <br />
+                    a házi pékáruk szerelmeseinek
+                </p>
+                {% if request.user.is_authenticated %}
+                <a href={% url 'app:foglalas' %}><button class="hero-button">Jelentkezés</button></a>
+                {% else %}
+                <a href="#application"><button class="hero-button">Jelentkezés</button></a>
+                {% endif %}
+            </div>
+        </div>
+    <section id="introduction">
+        <div class='introduction container'>
+            <h3 class='intro-title-mobile'>BEMUTATKOZÁS</h3>
+            <div class='introcontent'>
+                <div class='intropic'><img src="{% static 'images/introimg.jpg' %}" alt="image of the baker" /></div>                
+                <div class='introtext'>
+                    <h3 class='intro-title-desktop'>BEMUTATKOZÁS</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa debitis necessitatibus voluptas! Nobis fugit deleniti amet, cum in, qui delectus animi quasi velit, error quidem debitis accusantium odit hic cumque. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit provident similique perspiciatis? Deserunt aspernatur ducimus fuga vel ipsa! Debitis quisquam reiciendis a ab ipsa. Libero officia reprehenderit accusamus commodi mollitia?Lorem ipsum dolor sit amet consectetur adipisicing elit. In laborum aspernatur, minus dolor beatae rem similique nemo nesciunt maxime ex voluptates, vitae reprehenderit recusandae totam eligendi quam! Amet, hic temporibus.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="sourdough">
+        <div class="sourdough container" >
+            <div class="sourdough-content">                
+                <div class="sourdough-text">  
+                    <h3>MIÉRT KOVÁSSZAL?</h3> 
+                    <!-- <ul>
+                        <li>elérhetővé teszi az értékes tápanyagokat</li>
+                        <li>könnyebben emészthető</li>
+                        <li>alacsonyabb a glikémiás indexe</li>
+                        <li>prebiotikumokat tartalmaz</li>
+                        <li>hosszabb az eltarthatósága</li>
+                        <li>adalékanyag-mentes</li>
+                    </ul>                        -->
+                    <!-- <p>- elérhetővé teszi az értékes tápanyagokat</p>
+                    <p>- könnyebben emészthető</p>
+                    <p>- alacsonyabb a glikémiás indexe</p>                
+                    <p>- prebiotikumokat tartalmaz</p>
+                    <p>- hosszabb az eltarhatósága</p>
+                    <p>- adalékanyag-mentes</p> -->
+                    <ul class="sourdough-list">
+                        <li>Elérhetővé teszi az értékes tápanyagokat</li>
+                        <li>Könnyebben emészthető</li>
+                        <li>Alacsonyabb a glikémiás indexe</li>
+                        <li>Prebiotikumokat tartalmaz</li>
+                        <li>Hosszabb az eltarthatósága</li>
+                        <li>Adalékanyag-mentes</li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div class='sourdoughpic-desktop'><img src="{% static 'images/sourdough5.png' %}" alt="image sourdough bread" /></div>
+        </div>
+    </section>
+
+    <section id="course">
+        <div class="course container">
+            <h3>OKTATÁS</h3>
+            <div class="course-content">                
+                <div class="course-cards" style="grid-area: course-cards">
+                    <div class="card card1" style="grid-area: card-1"><p>barátságos légkör</p></div>
+                    <div class="card card2" style="grid-area: card-2"><p>hasznosítható tudás</p></div>
+                    <div class="card card3" style="grid-area: card-3"><p>gyakorlás és sikerélmény</p></div>
+                    <div class="card card4" style="grid-area: card-4"><p>válaszok a kérdéseidre</p></div>                                                
+                    <div class="card card5" style="grid-area: card-5"><p>120 perc</p></div>
+                    <div class="card card6" style="grid-area: card-6"><p>12 000 Ft</p></div>
+                    <div class="card-pic" style="grid-area: card-pic"><img src="{% static 'images/course2.jpg' %}" alt="image of baking"/></div>
+                </div>  
+                <div class="course-theme" style="grid-area: course-theme">
+                    <h4>Témakörök:</h4>
+                    <ul>
+                        <li>Kovászkészítés & etetés</li>
+                        <li>Gyúrás, dagasztás, hajtogatás</li>
+                        <li>Kelesztés, formázás, sütés</li>                    
+                        <li>Alapanyagok összeválogatása</li>
+                        <li>Speciális eszközök & praktikák</li>
+                        <li>Gyakori hibák & megoldások</li>                        
+                    </ul>                    
+                </div>
+                <div class="course-what-to-expect" style="grid-area: course-what-to-expect">
+                    <h4>Hogyan zajlik?</h4>
+                    <p>Az órákat általában egy rövid <span>elméleti</span> résszel kezdjük, hogy megértsd a kovász és a kenyértészta működését, így a tanultakat nem kizárólag recepteket követve, hanem rugalmasan is alkalmazhatod.</p> 
+                    <p>Majd a <span>gyakorlati</span> részben végigkísérlek a kenyérkészítés teljes folyamatán: minden lépést meg fogok mutatni, el fogok magyarázni, és segíteni foglak a profi és magabiztos mozdulatok elsajátításában.</p>
+                    <p>Az magánórák tempóját és tematikáját a tudásszintedhez és <span>az igényeidhez igazítom</span>, hogy pontosan azt kaphasd, amire szükséged van. Az a célom, hogy minden egyes óra a fejlődésedet szolgálja.</p>      
+                </div>               
+            </div>
+        </div>
+    </section>
+
+    
+    <section id="opinions">
+        <div class='opinions container'>
+            <h3>VÉLEMÉNYEK</h3>
+            <div class='opinions-content'>
+                <div class='opinion'>
+                    <div class='opinion-pic'> <img src="{% static 'images/familybaking.jpg' %}" alt="Kép egy kenyeret sütő családról." /></div>
+                    <div class='opinion-text'>"Szuper családi program lett a kenyérsütés. A lányom nagyon boldog, hogy újra olyan kenyeret ehet, ami finom és a pocakját sem bátja."</div>
+                </div>
+                <div class='opinion'>
+                    <div class='opinion-pic man-pic'><img src="{% static 'images/manbaking.jpg' %}" alt="Kép egy pékről, kenyerek között." /></div>
+                    <div class='opinion-text'>"A feleségem halála után sokáig nem találtam a helyem, de az órák inspiráltak egy új hivatás felé. Most én látom el a falut friss kenyérrel."</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% comment %} JELENTKEZÉS {% endcomment %}
+    <section id="application">
+        <div class="application container">
+            {% if not request.user.is_authenticated %}
+
+            <h3>JELENTKEZÉS</h3>
+            <p>Az időpontfoglalás bejelentkezéshez kötött:</p>
+            <a href={% url 'app:belepes' %}><button>Bejelentkezés</button></a>
+            <p>Ha még nem regisztráltál, itt megteheted:</p>
+            <a href={% url 'app:regisztracio' %}><button>Regisztráció</button></a>
+
+            {% else %}
+            <a href={% url 'app:foglalas' %}><button>Jelentkezés</button></a>
+
+            {% endif %}
+
+
+        </div>
+    </section>
+    {% comment %} JELENTKEZÉS VÉGE {% endcomment %}
+    <section id="contact">    
+        <div class='contact-container'>
+            <div class='contact-content'>
+                <h3>KAPCSOLAT</h3>
+                <p>Tel:</p>
+                <p>Email:</p>
+                <p>Socials:</p>
+                <p>Helyszín:</p>
+                <p>Általános szerződési feltételek</p>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        const navToggle= document.querySelector('.nav-toggle');
+        const navMobileMain= document.querySelector('.nav-mobile-main');
+        const mobileLinks = document.querySelectorAll('.nav-mobile-main a');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMobileMain.classList.toggle('active');
+        });        
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMobileMain.classList.contains('active')) {
+                    navToggle.classList.remove('active');
+                    navMobileMain.classList.remove('active');
+                }
+            })
+        });
+
+    </script>
+    
+{% endblock %}
