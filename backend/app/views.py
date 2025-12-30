@@ -162,3 +162,8 @@ def foglalastorles(request):
 
 def sikeresfoglalas(request):
     return render(request,'sikeresfoglalas.html')
+
+def staffpage(request):
+    foglalasok = Foglalas.objects.all()
+    context={'foglalasok':foglalasok}
+    return render(request, "staffpage.html",context=context)

@@ -18,6 +18,8 @@ urlpatterns = [
     path('sikeresreg/', views.sikeresreg, name="sikeresreg"),
     path('sikeresfoglalas/', views.sikeresfoglalas, name="sikeresfoglalas"),
 
+    path('staffpage/', views.staffpage, name="staffpage"),
+
     path('api/', views.SzabadIdopontokApi, name="SzabadIdopontokApi"),
 
 ]
