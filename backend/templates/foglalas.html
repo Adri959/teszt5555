@@ -2,17 +2,37 @@
 {% block content %}
 <section id="input-side">
     <nav class="navbar">
+
+            <div class="nav-mobile">
+                <div class="nav-mobile-top">
+                    <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
+                    <button class="nav-toggle">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button> 
+                </div>
+                <div class="nav-mobile-main">    
+                    <ul class="mobile-nav-bottom">
+                        <a href={% url 'app:foglalas' %}><li>Jelentkezés</li></a>
+                        {% if request.user.is_authenticated %}
+                        <li><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
+                        <li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
+                        {% else %}
+                        <li><a href={% url 'app:belepes' %}>Belépés</a></li>
+                        <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li>
+                        {% endif %}
+                    </ul> 
+                </div>
+            </div>
+
             <div class="nav-content">
-                <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
-                <div class="menu-open"><i>open</i></div> 
-                <div class="menu-close"><i>close</i></div>
-                       
-                <ul class="nav-right">
-                    
+                <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>          
+                <ul class="nav-right">                    
                     <a href={% url 'app:foglalas' %}><li>Jelentkezés</li></a>
                     {% if request.user.is_authenticated %}
                     <li><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
-                    <li></li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
+                    <li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
                     {% else %}
                     <li><a href={% url 'app:belepes' %}>Belépés</a></li>
                     <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li>
@@ -30,7 +50,7 @@
     {% if uzenet %}
         <h5>{{uzenet}}</h5>
     {% elif  not idopontok %}
-        <h5>Elfogytak az időpontok</h5>   
+        <h5>Elfogytak az időpontok.</h5>
         
     {% else%}
     <form action={% url 'app:foglal' %} method='post'>
@@ -56,17 +76,39 @@
         </select>
         <br>
         <br>
-        <button type="submit" class="submit-button">Foglalás</button>
-        <br> <label for="tapasztalat">Tapasztalat: </label>
-            <select name="tapasztalat" id="tapasztalat">
-                <option value="Sokszor sütöttem már">Sokszor sütöttem már</option>
-                <option value="Párszor már nekifutottam">Párszor már nekifutottam</option>
-                <option value="Nincs tapasztalatom">Nincs tapasztalatom</option>
+        <label for="tapasztalat">Tapasztalat: </label> <br>
+            <select name="tapasztalat" id="tapasztalat" class="input-field"> 
+                <option value="Nincs tapasztalatom" >Nincs tapasztalatom</option>
+                <option value="Párszor már nekifutottam" >Párszor már nekifutottam</option>
+                <option value="Sokszor sütöttem már" >Sokszor sütöttem már</option>
+                
+                
             </select> <br> <br>
+        <button type="submit" class="submit-button">Foglalás</button>
+        
 
     </form>
     {% endif %}
 </div>
+<script>
+        const navToggle= document.querySelector('.nav-toggle');
+        const navMobileMain= document.querySelector('.nav-mobile-main');
+        const mobileLinks = document.querySelectorAll('.nav-mobile-main a');
 
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMobileMain.classList.toggle('active');
+        });        
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMobileMain.classList.contains('active')) {
+                    navToggle.classList.remove('active');
+                    navMobileMain.classList.remove('active');
+                }
+            })
+        });
+</script>
+<section>
 {% endblock content %}
-<section id="input-side">
+
