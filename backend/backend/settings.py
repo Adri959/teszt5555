@@ -138,3 +138,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/app/belepes/'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+SESSION_COOKIE_AGE = 86400
