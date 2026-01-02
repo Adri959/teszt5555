@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section id="input-side">
+    <nav>
+        <div class="navbar">
+            <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
+            <button class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button> 
+        </div>
+        <div class="menu">             
+            <ul class="menu-secondary">
+                <li><a href={% url 'app:foglalas' %}>Jelentkezés</a></li>
+                {% if request.user.is_authenticated %}    
+                    <li><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
+                    <li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
+                {% else %}
+                    <li><a href={% url 'app:belepes' %}>Belépés</a></li>
+                    <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    {% if request.user.is_staff %}
+    <div class="input-content table-design">
+    <h6>--Staff--</h6>
+    <h5>Foglalt időpontok</h5>
+    <div class="table-wrapper">
+    <table>
+        <tr>
+            
+            <th>Dátum</th>
+            <th>Idő</th>
+            <th>Szolg.</th>
+            <th>Usern.</th>
+            <th>Email</th>
+        </tr>
+    {% for foglalas in foglalasok %}
+    
+        <tr>                       
+            <td>{{foglalas.idopont.datum}}</td>
+            <td>{{foglalas.idopont.ido |time:"H:i"}}</td>
+            <td>{{foglalas.szolgaltatas.nev}}</td>
+            <td>{{foglalas.user.username}}</td>
+            <td>{{foglalas.user.email}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+    </div>
+    {% else %}
+    <div class="input-content"><h5>Staff only</h5></div>
+    {% endif %}
+    </div>
+
+
+<script>
+        const navToggle= document.querySelector('.nav-toggle');
+        const navMenu= document.querySelector('.menu');
+        const mobileLinks = document.querySelectorAll('.menu a');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });        
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            })
+        });
+
+</script>
+
+{% endblock %}

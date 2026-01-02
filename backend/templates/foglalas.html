@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block content %}
+<section id="input-side">
+    <nav>
+        <div class="navbar">
+            <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
+            <button class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button> 
+        </div>
+        <div class="menu">
+            <ul class="menu-secondary">
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_staff %}
+                        <li><a href={% url 'app:staffpage' %}>Staff</a></li>
+                    {% endif %}    
+                    <li><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
+                    <li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
+                {% else %}
+                    <li><a href={% url 'app:belepes' %}>Belépés</a></li>
+                    <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    
+<div class="input-content">
+    <h5>Foglalás</h5>
+
+    {% comment %} 
+    Ha két órán belüli a foglalás ne engedje és írja ki az "uzenet"-et
+    {% endcomment %}
+    {% if uzenet %}
+        <h5>{{uzenet}}</h5>
+    {% elif  not idopontok %}
+        <h5>Elfogytak az időpontok.</h5>
+        
+    {% else%}
+    <form action={% url 'app:foglal' %} method='post'>
+        {% csrf_token %}
+
+        {% comment %} <label for="nev">Foglaló neve: </label>
+        <input type="text" name="nev"> {% endcomment %}
+
+        <label for="szolgaltatas">Szolgáltatás:</label><br>
+        <select name="szolgaltatas" class="input-field">
+            {% for szolgaltatas in szolgaltatasok %}
+                <option value={{szolgaltatas.nev}} >{{szolgaltatas.nev}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+
+        <label for="idopont">Időpont:</label><br>
+        <select name="idopont" id="idopont" class="input-field">
+            {% for idopont in idopontok %}
+                <option value="{{idopont}}" >{{idopont}}</option>
+            {% endfor %}
+        </select>
+        <br>
+        <br>
+        <label for="tapasztalat">Tapasztalat: </label> <br>
+            <select name="tapasztalat" id="tapasztalat" class="input-field"> 
+                <option value="Nincs tapasztalatom" >Nincs tapasztalatom</option>
+                <option value="Párszor már nekifutottam" >Párszor már nekifutottam</option>
+                <option value="Sokszor sütöttem már" >Sokszor sütöttem már</option>
+                
+                
+            </select> <br> <br>
+        <button type="submit" class="submit-button">Foglalás</button>
+        
+
+    </form>
+    {% endif %}
+</div>
+<script>
+        const navToggle= document.querySelector('.nav-toggle');
+        const navMenu= document.querySelector('.menu');
+        const mobileLinks = document.querySelectorAll('.menu a');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });        
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            })
+        });
+
+</script>
+<section>
+{% endblock content %}
+
