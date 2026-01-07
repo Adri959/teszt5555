@@ -126,7 +126,17 @@ def belepes(request):
         
         email = request.POST.get('email')
         password = request.POST.get('password')
-        user_obj = User.objects.get(email=email)
+        if email == "" or password == "":
+            messages.error(request, "Hibás bejelentkezési adatok")
+            return redirect('/app/belepes')
+
+        try:
+            user_obj = User.objects.get(email=email)
+        except User.DoesNotExist:
+            user_obj = None
+            messages.error(request, "Hibás bejelentkezési adatok")
+            return redirect('/app/belepes')
+        
         user = authenticate(request, username=user_obj.username, password=password)
         if user is not None:
             login(request,user)

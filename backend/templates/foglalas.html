@@ -47,7 +47,7 @@
         <label for="szolgaltatas">Szolgáltatás:</label><br>
         <select name="szolgaltatas" class="input-field">
             {% for szolgaltatas in szolgaltatasok %}
-                <option value={{szolgaltatas.nev}} >{{szolgaltatas.nev}}</option>
+                <option value="{{szolgaltatas.nev}}" >{{szolgaltatas.nev}}</option>
             {% endfor %}
         </select>
         <br>
@@ -68,7 +68,7 @@
                 <option value="Sokszor sütöttem már" >Sokszor sütöttem már</option>
                 
                 
-            </select> <br> <br>
+            </select> <br> <br> <br>
         <button type="submit" class="submit-button">Foglalás</button>
         
 

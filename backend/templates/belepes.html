@@ -31,22 +31,23 @@
 <form method="post" action={% url 'app:belepes' %}>
     {% csrf_token %}
     <label for="email">Email: </label> <br>
-    <input type="text" name="email" id="" class="input-field">
+    <input type="text" name="email" required id="" class="input-field">
 
     <br>
     <br>
 
     <label for="password">Jelszó: </label> <br>
-    <input type="password" name="password" class="input-field">
+    <input type="password" name="password" required class="input-field">
 
     <br>
     <br>
+    <br>
 
-    <input type="submit" value="Belépés" class="submit-button">
+    <input type="submit" value="Belépek" class="submit-button">
 
 </form>
 <br>
-<a href={% url 'app:regisztracio' %} class="link">Regisztráció</a>
+<a href={% url 'app:regisztracio' %} class="link link-register">Regisztráció</a>
 {% for message in messages %}
 <p>{{message}}</p>
 {% endfor %}

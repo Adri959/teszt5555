@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block content %}
 {% load static %}
     
@@ -24,7 +23,7 @@
             <ul class="menu-secondary">
                 {% if request.user.is_authenticated %}
                     {% if request.user.is_staff %}
-                        <li><a href={% url 'app:staffpage' %}>Staff</a></li>
+                    <li><a href={% url 'app:staffpage' %}>Staff</a></li>
                     {% endif %}    
                     <li><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
                     <li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
@@ -36,70 +35,7 @@
         </div>
     </nav>
 
-
-{% comment %} <nav class="navbar">
-            <div class="nav-mobile">
-                <div class="nav-mobile-top">
-                    <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
-                    <button class="nav-toggle">
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                    </button> 
-                </div> 
-                <div class="nav-mobile-main">           
-                    <ul class="mobile-menu">
-                        <li><a href="#introduction">Bemutatkozás</a></li>
-                        <li><a href="#sourdough">Miért kovásszal?</a></li>
-                        <li><a href="#course">Oktatás</a></li>
-                        {% if request.user.is_staff %}
-                            <li ><a href={% url 'app:staffpage' %}>Staff</a></li>
-                        {% endif %}
-                        <li><a href="#opinions">Vélemények</a></li>  
-                        <li><a href="#application">Jelentkezés</a></li>                    
-                        <li><a href="#contact">Kapcsolat</a></li>                    
-                    </ul> 
-                    <ul class="mobile-nav-bottom">
-                        {% if request.user.is_authenticated %}
-                            
-                        <li ><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
-                        <li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
-                        {% else %}
-                        <li> <a href={% url 'app:belepes' %}>Belépés</a></li>
-                        <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li>
-                        {% endif %}
-                    </ul>
-                </div>  
-            </div>
-
-            <div class="nav-content">                
-                <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
-                
-                             
-                <ul class="navbar-menu">
-                    <li><a href="#introduction">Bemutatkozás</a></li>
-                    <li><a href="#sourdough">Miért kovásszal?</a></li>
-                    <li><a href="#course">Oktatás</a></li>
-                    <li><a href="#opinions">Vélemények</a></li>  
-                    <li><a href="#application">Jelentkezés</a></li>                    
-                    <li><a href="#contact">Kapcsolat</a></li>                    
-                </ul> 
-                <ul class="nav-right">
-                    {% if request.user.is_authenticated %}
-                    {% if request.user.is_staff %}
-                            <li ><a href={% url 'app:staffpage' %}>Staff</a></li>
-                    {% endif %}
-                    <li ><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
-                    <li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
-                    {% else %}
-                    <li> <a href={% url 'app:belepes' %}>Belépés</a></li>
-                    <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-    </nav> {% endcomment %}
-    <section id="hero"></section>
-        
+    <section id="hero">        
         <div class="hero-container">            
             <div class="hero-content">
                 <div class="hero-titles">                    
@@ -118,37 +54,29 @@
                 {% endif %}
             </div>
         </div>
+    </section>
+
     <section id="introduction">
         <div class='introduction container'>
-            <h3 class='intro-title-mobile'>BEMUTATKOZÁS</h3>
+            <h3 class='intro-title-mobile'>Bemutatkozás</h3>
             <div class='introcontent'>
                 <div class='intropic'><img src="{% static 'images/introimg.jpg' %}" alt="image of the baker" /></div>                
                 <div class='introtext'>
-                    <h3 class='intro-title-desktop'>BEMUTATKOZÁS</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa debitis necessitatibus voluptas! Nobis fugit deleniti amet, cum in, qui delectus animi quasi velit, error quidem debitis accusantium odit hic cumque. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit provident similique perspiciatis? Deserunt aspernatur ducimus fuga vel ipsa! Debitis quisquam reiciendis a ab ipsa. Libero officia reprehenderit accusamus commodi mollitia?Lorem ipsum dolor sit amet consectetur adipisicing elit. In laborum aspernatur, minus dolor beatae rem similique nemo nesciunt maxime ex voluptates, vitae reprehenderit recusandae totam eligendi quam! Amet, hic temporibus.</p>
+                    <h3 class='intro-title-desktop'>Bemutatkozás</h3>
+                    <p>András vagyok. A kenyérkészítési utam egy emésztési problémából indult, ami miatt el kellett hagynom a bolti pékárukat. Eleinte nehezen szántam rá magam az otthoni sütésre, és be kell vallanom, több volt a kudarc, mint a siker. De nem adtam fel — tanultam, kísérleteztem, és a kenyerek egyre jobbak lettek.</p> 
+                    <p class="intro-space">Később beiratkoztam egy pék képzésre, ahol fantasztikus csapat gyűlt össze. Ebben a közegben igazán fellángolt bennem a kovász-szenvedély, és hamarosan világossá vált: ez nem csupán hobbi, hanem hivatás. 
+                    Ma már saját pékséget vezetek, és időről időre megnyitom a műhely ajtaját, hogy másokkal is megoszthassam az évek során megszerzett tapasztalataimat.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
+
     <section id="sourdough">
         <div class="sourdough container" >
             <div class="sourdough-content">                
                 <div class="sourdough-text">  
-                    <h3>MIÉRT KOVÁSSZAL?</h3> 
-                    <!-- <ul>
-                        <li>elérhetővé teszi az értékes tápanyagokat</li>
-                        <li>könnyebben emészthető</li>
-                        <li>alacsonyabb a glikémiás indexe</li>
-                        <li>prebiotikumokat tartalmaz</li>
-                        <li>hosszabb az eltarthatósága</li>
-                        <li>adalékanyag-mentes</li>
-                    </ul>                        -->
-                    <!-- <p>- elérhetővé teszi az értékes tápanyagokat</p>
-                    <p>- könnyebben emészthető</p>
-                    <p>- alacsonyabb a glikémiás indexe</p>                
-                    <p>- prebiotikumokat tartalmaz</p>
-                    <p>- hosszabb az eltarhatósága</p>
-                    <p>- adalékanyag-mentes</p> -->
+                    <h3>Miért kovásszal?</h3> 
                     <ul class="sourdough-list">
                         <li>Elérhetővé teszi az értékes tápanyagokat</li>
                         <li>Könnyebben emészthető</li>
@@ -157,8 +85,7 @@
                         <li>Hosszabb az eltarthatósága</li>
                         <li>Adalékanyag-mentes</li>
                     </ul>
-                </div>
-                
+                </div>                
             </div>
             <div class='sourdoughpic-desktop'><img src="{% static 'images/sourdough5.png' %}" alt="image sourdough bread" /></div>
         </div>
@@ -166,7 +93,7 @@
 
     <section id="course">
         <div class="course container">
-            <h3>OKTATÁS</h3>
+            <h3>Oktatás</h3>
             <div class="course-content">                
                 <div class="course-cards" style="grid-area: course-cards">
                     <div class="card card1" style="grid-area: card-1"><p>barátságos légkör</p></div>
@@ -197,11 +124,10 @@
             </div>
         </div>
     </section>
-
     
     <section id="opinions">
         <div class='opinions container'>
-            <h3>VÉLEMÉNYEK</h3>
+            <h3>Vélemények</h3>
             <div class='opinions-content'>
                 <div class='opinion'>
                     <div class='opinion-pic'> <img src="{% static 'images/familybaking.jpg' %}" alt="Kép egy kenyeret sütő családról." /></div>
@@ -214,44 +140,49 @@
             </div>
         </div>
     </section>
-    {% comment %} JELENTKEZÉS {% endcomment %}
+    
     <section id="application">
         <div class="application container">
             {% if not request.user.is_authenticated %}
-
-            <h3>JELENTKEZÉS</h3>
+            <h3>Jelentkezés</h3>
             <p>Az időpontfoglalás bejelentkezéshez kötött:</p>
             <a href={% url 'app:belepes' %}><button>Bejelentkezés</button></a>
             <p>Ha még nem regisztráltál, itt megteheted:</p>
             <a href={% url 'app:regisztracio' %}><button>Regisztráció</button></a>
-
             {% else %}
             <h3>JELENTKEZÉS</h3>
             <p>A szabad időpontokat az alábbi gombra kattintva tekintheted meg:</p>
             <a href={% url 'app:foglalas' %}><button>Időpontfoglalás</button></a>
-
             {% endif %}
-
-
         </div>
     </section>
-    {% comment %} JELENTKEZÉS VÉGE {% endcomment %}
+    
     <section id="contact">    
         <div class='contact-container'>
             <div class='contact-content'>
-                <h3>KAPCSOLAT</h3>
-                <p>Tel:</p>
-                <p>Email:</p>
-                <p>Socials:</p>
-                <p>Helyszín:</p>
-                <p>Általános szerződési feltételek</p>
+                <h3>Kapcsolat</h3>
+                <p>Tel: 06 70 444 4444</p>
+                <p>Email: kovaszmuhely@info.hu</p>                
+                <p>Helyszín: Kovász műhely -<br> 4025, Szarvas utca 76. </p>
+                <h4>Less be hozzánk:</h4>
+                <div class="socials">
+                    <div class="icon">F</div>
+                    <div class="icon">I</div>
+                    <div class="icon">T</div>
+                </div>
             </div>
         </div>
     </section>
-    
-    
+
+    <footer>    
+        <div class='footer-content'>                
+            <p>ÁSZF</p>
+            <p>© Kovász Mentor 2026.</p>
+        </div>
+    </footer>   
 
     <script>
+
         const navToggle= document.querySelector('.nav-toggle');
         const navMenu= document.querySelector('.menu');
         const mobileLinks = document.querySelectorAll('.menu a');
