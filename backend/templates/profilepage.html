@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-
 {% block content %}
 <section id="input-side">
 {% load static %}
+  
     <nav>
         <div class="navbar">
             <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
@@ -13,19 +13,23 @@
             </button> 
         </div>
         <div class="menu">
-            <ul class="menu-secondary">
-                <li><a href={% url 'app:foglalas' %}>Jelentkezés</a></li>
-                {% if request.user.is_authenticated %}                
-                    {% if request.user.is_staff %}
-                        <li><a href={% url 'app:staffpage' %}>Staff</a></li>
-                    {% endif %}    
+            {% if request.user.is_staff %}
+            <ul class="menu-main">                
+                <li><a href={% url 'app:staffpage' %}>Foglalt időpontok</a></li>
+                <li><a href={% url 'app:staffpage2' %}>Szabad időpontok</a></li>
+                <li><a href={% url 'app:staffpage3' %}>Időpont létrehozása</a></li>                                   
+            </ul>   
+            {% endif %}      
+            <ul class="menu-secondary">                
+                {% if request.user.is_authenticated %}
+                    <li><a href={% url 'app:foglalas' %}>Jelentkezés</a></li>                        
                     <li><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
                     <li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
                 {% else %}
                     <li><a href={% url 'app:belepes' %}>Belépés</a></li>
-                    <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li>
-                {% endif %}
-            </ul>
+                    <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li> 
+                {% endif %}                   
+            </ul>            
         </div>
     </nav>
 
@@ -34,7 +38,7 @@
     <h5>Foglalásaim:</h5>
     <div class="middle-position">
         {% for foglalas in foglalasok %}
-        <form action={% url 'app:foglalastorles' %} method='post'>
+        <form action={% url 'app:foglalaslemondas' %} method='post'>
             <input type="hidden" name="foglalasid" value={{foglalas.id}} />
             {% csrf_token %}
             <div class="torleskartya">

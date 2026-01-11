@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section id="staff">
+    
+    <nav>
+        <div class="navbar">
+            <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
+            <button class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button> 
+        </div>
+        <div class="menu">
+            {% if request.user.is_staff %}
+            <ul class="menu-main">                
+                <li><a href={% url 'app:staffpage' %}>Foglalt időpontok</a></li>
+                <li><a href={% url 'app:staffpage2' %}>Szabad időpontok</a></li>
+                <li><a href={% url 'app:staffpage3' %}>Időpont létrehozása</a></li>                                   
+            </ul>   
+            {% endif %}      
+            <ul class="menu-secondary">
+                {% if request.user.is_authenticated %} 
+                    <li><a href={% url 'app:foglalas' %}>Jelentkezés</a></li>                       
+                    <li><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
+                    <li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
+                {% else %}
+                    <li><a href={% url 'app:belepes' %}>Belépés</a></li>
+                    <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li> 
+                {% endif %}                   
+            </ul>            
+        </div>
+    </nav>
+
+    {% if request.user.is_staff %}
+    <br><br><br>
+
+
+
+    <div class="input-content table-design">
+        <h5>Szabad időpontok</h5>
+        <div class="table-wrapper">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Dátum</th>
+                <th>Idő</th>
+                <th>
+                        <form action={% url 'app:idelete' %}>               
+                            {% csrf_token %}
+                            <button type="submit" class="submit-button delete-appt" 
+                            onclick="return confirm('Biztos TÖRÖLSZ MINDEN szabad időpontot?')">Összes időpont törlése</button>
+                        </form>
+                </th>
+            </tr>
+            {% for idopont in idopontok %}
+            {% if not idopont.foglalt %}
+                <tr>
+                    <td>{{idopont.id}}</td>
+                    <td>{{idopont.datum|date:"Y-m-d"}}</td>
+                    <td>{{idopont.ido |time:"H:i"}}</td>
+                    <td>
+                        <form action={% url 'app:idoponttorlesAdmin' %} method='post'>
+                            <input type="hidden" name="idopontid" value={{idopont.id}} />
+                            {% csrf_token %}
+                            <button type="submit" class="submit-button delete-appt" 
+                            onclick="return confirm('Biztos törlöd ezt az időpontot? {{ idopont.datum|date:"Y-m-d" }} {{ idopont.ido |time:"H:i" }}')">Törlés</button>
+                        </form>
+                    </td>
+                    
+                </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+        </div>
+    </div>
+    
+    {% else %}
+    <div class="input-content"><h5>Staff only</h5></div>
+    {% endif %}
+    </div>
+
+
+<script>
+        const navToggle= document.querySelector('.nav-toggle');
+        const navMenu= document.querySelector('.menu');
+        const mobileLinks = document.querySelectorAll('.menu a');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });        
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            })
+        });
+
+</script>
+
+{% endblock %}

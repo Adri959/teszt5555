@@ -30,35 +30,22 @@
 <form method="post" action={% url 'app:regisztracio' %} >
     {% csrf_token %}
     <label for="username">Felhasználónév: </label> <br>
-    <input type="text" name="username" required class="input-field">
-
-    <br>
-    <br>
+    <input type="text" name="username" required class="input-field"><br>
 
     <label for="email">Email: </label> <br>
-    <input type="text" name="email" required class="input-field">
-
-    <br>
-    <br>
+    <input type="text" name="email" required class="input-field"><br>
 
     <label for="password">Jelszó: </label> <br>
-    <input type="password" name="password" required class="input-field">
-
-    <br>
-    <br>
+    <input type="password" name="password" required class="input-field"><br>
 
     <label for="password2">Jelszó (mégegyszer): </label> <br>
-    <input type="password" name="password2" required class="input-field">
-
-    <br>
-    <br>
-    <br>
+    <input type="password" name="password2" required class="input-field"><br><br>
 
     <input type="submit" value="Regisztrálok" class="submit-button">
 
 </form>
 {% for message in messages %}
-    <p>{{message}}</p>
+    <p class="alert">{{message}}</p>
 {% endfor %}
 </div>
 </section>

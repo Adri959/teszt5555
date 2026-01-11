@@ -13,6 +13,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from .serializers import IdopontSerializer
 
+import re
 import datetime
 from django.db.models import Q
 
@@ -160,20 +161,149 @@ def profilepage(request):
     context= {'foglalasok':foglalasok}
     return render(request,'profilepage.html',context)
 
-def foglalastorles(request):
+def foglalaslemondas(request):
     if request.method == 'POST':
         foglalasid = request.POST.get("foglalasid")
         torlendo = Foglalas.objects.get(id=foglalasid)
         torlendo.idopont.foglalt = False
         torlendo.idopont.save()
         torlendo.delete()
-        
     return redirect('/app/profilepage')
 
+def foglalaslemondasAdmin(request):
+    if request.user.is_staff:
+        if request.method == 'POST':
+            foglalasid = request.POST.get("foglalasid")
+            torlendo = Foglalas.objects.get(id=foglalasid)
+            torlendo.idopont.foglalt = False
+            torlendo.idopont.save()
+            torlendo.delete()
+        return redirect('/app/staffpage')
+    else:
+        return redirect('/')
+
+def foglalastorlesAdmin(request):
+    if request.user.is_staff:
+        if request.method == 'POST':
+            foglalasid = request.POST.get("foglalasid")
+            torlendo = Foglalas.objects.get(id=foglalasid)
+            torlendo.idopont.delete()
+            torlendo.delete()
+        return redirect('/app/staffpage')
+    else:
+        return redirect('/')
+    
+def idoponttorlesAdmin(request):
+    if request.user.is_staff:
+        if request.method == 'POST':
+            idopontid = request.POST.get("idopontid")
+            idopont = Idopont.objects.get(id=idopontid)
+            idopont.delete()
+        return redirect('/app/staffpage2')
+    else:
+        return redirect('/')
+
+def idelete(request):
+    if request.user.is_staff:
+        idopontok = Idopont.objects.all()
+        for idopont in idopontok:
+            if not idopont.foglalt:
+                idopont.delete()
+        return redirect('/app/staffpage2')
+    else:
+        return redirect('/')
+
+def createIdopont(request):
+    if request.user.is_staff:
+        if request.method == 'POST':
+            datum = request.POST.get("datum")
+            datum_pattern = r'^\d{4}-\d{2}-\d{2}$'
+            ido = request.POST.get("ido")
+            ido_pattern = r'^\d{2}:\d{2}$'
+            
+            if not re.match(datum_pattern, datum):
+                messages.error(request, 'Hibás dátum formátum! Használj: ÉÉÉÉ-HH-NN (pl. 2025-05-05)')
+                return redirect('/app/staffpage3')
+            
+            if not re.match(ido_pattern, ido):
+                messages.error(request, 'Hibás idő formátum! Használj: ÓÓ:PP (pl. 21:00)')
+                return redirect('/app/staffpage3')
+            if Idopont.objects.filter(datum=datum, ido=ido).exists():
+                messages.error(request, 'Ez az időpont már foglalt!')
+                return redirect('/app/staffpage3')
+
+            newidopont = Idopont.objects.create(datum=datum,ido=ido)
+            newidopont.save()
+            return redirect('/app/staffpage3')
+    else:
+        return redirect('/')
+
+def igenerate(request):
+    if request.user.is_staff:
+        if request.method == "POST":
+            kezdet_str = request.POST.get("kezdetidatum")
+            if kezdet_str == "":
+                kezdet_str = str(datetime.datetime.now().date())
+            datum_pattern = r'^\d{4}-\d{2}-\d{2}$'
+            if not re.match(datum_pattern, kezdet_str):
+                    messages.error(request, 'Hibás dátum formátum! Használj: ÉÉÉÉ-HH-NN (pl. 2025-05-05)')
+                    return redirect('/app/staffpage3')
+            kezdetidatum = datetime.datetime.strptime(kezdet_str, "%Y-%m-%d").date()
+
+
+            napok_szama = request.POST.get("nap")
+            if napok_szama == "":
+                napok_szama = "10"
+
+            oras_lepes = request.POST.get("lepeskoz")
+            if oras_lepes == "":
+                oras_lepes = "3"
+            
+            nap_pattern = r'^[1-9]\d*$'
+
+
+            if not re.match(nap_pattern, napok_szama):
+                        messages.error(request, 'Csak pozitív egész szám adható meg a nap és lépésköz mezőkbe')
+                        return redirect('/app/staffpage3')
+            if not re.match(nap_pattern, oras_lepes):
+                        messages.error(request, 'Csak pozitív egész szám adható meg a nap és lépésköz mezőkbe')
+                        return redirect('/app/staffpage3')
+            
+        oras_lepes = int(oras_lepes)
+        napok_szama = int(napok_szama)
+        generaltnapok=0
+        j=0
+        while generaltnapok != napok_szama:
+            
+            intervalday = datetime.timedelta(days=j)
+            j=j+1
+            idopont = datetime.datetime(kezdetidatum.year,kezdetidatum.month,kezdetidatum.day,10,0)
+            idopont = idopont + intervalday
+            if idopont.weekday() == 5 or idopont.weekday() == 6:  #ha hétvége, ne generáljon  
+                continue
+                
+
+            for i in range(0,10,oras_lepes):   #itt állítható, hány óránként
+                    keszidopont = idopont + datetime.timedelta(hours=i)
+                    Idopont.objects.get_or_create(datum=keszidopont.date(), ido=keszidopont.time())
+
+            generaltnapok +=1
+        return redirect('/app/staffpage3')
+            
 def sikeresfoglalas(request):
     return render(request,'sikeresfoglalas.html')
 
 def staffpage(request):
-    foglalasok = Foglalas.objects.all()
-    context={'foglalasok':foglalasok}
+    foglalasok = Foglalas.objects.all().order_by('idopont__datum', 'idopont__ido')
+    context={'foglalasok':foglalasok,}
     return render(request, "staffpage.html",context=context)
+
+def staffpage2(request):
+    idopontok = Idopont.objects.all().order_by('datum', 'ido')
+    context={'idopontok':idopontok}
+    return render(request, "staffpage2.html",context=context)
+
+def staffpage3(request):
+    maidatum = str(datetime.datetime.now().date())
+    context={'maidatum':maidatum}
+    return render(request, "staffpage3.html",context=context)

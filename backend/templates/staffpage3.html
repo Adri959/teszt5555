@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section id="staff">
+    
+    <nav>
+        <div class="navbar">
+            <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
+            <button class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button> 
+        </div>
+        <div class="menu">
+            {% if request.user.is_staff %}
+            <ul class="menu-main">                
+                <li><a href={% url 'app:staffpage' %}>Foglalt időpontok</a></li>
+                <li><a href={% url 'app:staffpage2' %}>Szabad időpontok</a></li>
+                <li><a href={% url 'app:staffpage3' %}>Időpont létrehozása</a></li>                                   
+            </ul>   
+            {% endif %}      
+            <ul class="menu-secondary">
+                {% if request.user.is_authenticated %} 
+                    <li><a href={% url 'app:foglalas' %}>Jelentkezés</a></li>                       
+                    <li><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
+                    <li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
+                {% else %}
+                    <li><a href={% url 'app:belepes' %}>Belépés</a></li>
+                    <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li> 
+                {% endif %}                   
+            </ul>            
+        </div>
+    </nav>
+
+    {% if request.user.is_staff %}
+    <br><br><br>   
+    </div>
+        {% for message in messages %}
+        <p class="alert">{{ message }}</p>
+        {% endfor %}
+    </div> 
+    <div class="creating-appointment-container">
+    <div class="input-content">
+        <h5>Időpont <br> hozzáadás</h5>
+        <form action={% url 'app:createIdopont' %} method="post">
+            {% csrf_token %}
+            <label for="datum">Dátum: </label><br>
+            <input type="text" name="datum" placeholder={{maidatum}} required class="input-field">
+            <br>
+            <label for="datum">Ídő: </label><br>
+            <input type="text" name="ido" placeholder="21:00" required class="input-field"><br><br>
+            <button type="submit" class="submit-button">Create</button>
+        </form>
+    </div>
+
+    <div class="input-content">
+        <h5>Több időpont <br> generálása</h5>
+        <form action={% url 'app:igenerate' %} method="post">
+            {% csrf_token %}
+            <label for="nap">Hány napra: </label><br>
+            <input type="text" name="nap" placeholder="10"  class="input-field">
+            <br>
+
+            <label for="lepeskoz">Lépésköz: </label><br>
+            <input type="text" name="lepeskoz" placeholder="3"  class="input-field">
+            <br>
+
+            <label for="kezdetidatum">Kezdeti dátum: </label><br>
+            <input type="text" name="kezdetidatum" placeholder={{maidatum}}  class="input-field">
+            <br><br>
+            <button type="submit" class="submit-button">Generate</button>
+        </form>
+        </div>
+    
+
+    {% else %}
+    <div class="input-content"><h5>Staff only</h5></div>
+    {% endif %}
+
+    
+</section>
+
+<script>
+        const navToggle= document.querySelector('.nav-toggle');
+        const navMenu= document.querySelector('.menu');
+        const mobileLinks = document.querySelectorAll('.menu a');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });        
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('active')) {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            })
+        });
+
+</script>
+
+{% endblock %}

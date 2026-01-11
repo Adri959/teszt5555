@@ -2,7 +2,8 @@
 
 {% block content %}
 
-<section id="input-side">
+<section id="staff">
+    
     <nav>
         <div class="navbar">
             <a href={% url 'app:index' %} class="logo">Kovász Mentor</a>
@@ -12,46 +13,74 @@
                 <span class="bar"></span>
             </button> 
         </div>
-        <div class="menu">             
+        <div class="menu">
+            {% if request.user.is_staff %}
+            <ul class="menu-main">                
+                <li><a href={% url 'app:staffpage' %}>Foglalt időpontok</a></li>
+                <li><a href={% url 'app:staffpage2' %}>Szabad időpontok</a></li>
+                <li><a href={% url 'app:staffpage3' %}>Időpont létrehozása</a></li>                                   
+            </ul>   
+            {% endif %}      
             <ul class="menu-secondary">
-                <li><a href={% url 'app:foglalas' %}>Jelentkezés</a></li>
-                {% if request.user.is_authenticated %}    
+                {% if request.user.is_authenticated %} 
+                    <li><a href={% url 'app:foglalas' %}>Jelentkezés</a></li>                       
                     <li><a href={% url 'app:profilepage' %}>Foglalásaim</a></li>
                     <li><a href={% url 'app:kilepes' %}>Kilépés</a></li>
                 {% else %}
                     <li><a href={% url 'app:belepes' %}>Belépés</a></li>
-                    <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li>
-                {% endif %}
-            </ul>
+                    <li><a href={% url 'app:regisztracio' %}>Regisztráció</a></li> 
+                {% endif %}                   
+            </ul>            
         </div>
     </nav>
 
     {% if request.user.is_staff %}
+    <br><br><br>
+   
     <div class="input-content table-design">
-    <h6>--Staff--</h6>
     <h5>Foglalt időpontok</h5>
     <div class="table-wrapper">
     <table>
         <tr>
-            
+            <th>ID</th>
             <th>Dátum</th>
             <th>Idő</th>
             <th>Szolg.</th>
             <th>Usern.</th>
             <th>Email</th>
+            
         </tr>
     {% for foglalas in foglalasok %}
-    
-        <tr>                       
-            <td>{{foglalas.idopont.datum}}</td>
+        <tr>                   
+            <td>{{foglalas.id}}</td>
+            <td>{{foglalas.idopont.datum|date:"Y-m-d"}}</td>
             <td>{{foglalas.idopont.ido |time:"H:i"}}</td>
             <td>{{foglalas.szolgaltatas.nev}}</td>
             <td>{{foglalas.user.username}}</td>
             <td>{{foglalas.user.email}}</td>
+            <td>
+                <form action={% url 'app:foglalaslemondasAdmin' %} method='post'>
+                    <input type="hidden" name="foglalasid" value={{foglalas.id}} />
+                    {% csrf_token %}
+                    <button type="submit" class="submit-button cancel-appt" 
+                    onclick="return confirm('Biztos szabaddá teszed az időpontot? {{foglalas.idopont.datum|date:"Y-m-d"}} {{foglalas.idopont.ido|time:"H:i"}}')">
+                    Lemondva</button>
+                </form>
+            </td>
+            <td>
+                <form action={% url 'app:foglalastorlesAdmin' %} method='post'>
+                    <input type="hidden" name="foglalasid" value={{foglalas.id}} />
+                    {% csrf_token %}
+                    <button type="submit" class="submit-button delete-appt"
+                    onclick="return confirm('Biztos törlöd az időpontot? {{foglalas.idopont.datum|date:"Y-m-d"}} {{foglalas.idopont.ido|time:"H:i"}}')">
+                    Törlés</button>
+                </form>
+            </td>            
         </tr>
     {% endfor %}
     </table>
     </div>
+    
     {% else %}
     <div class="input-content"><h5>Staff only</h5></div>
     {% endif %}
