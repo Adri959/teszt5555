@@ -21,7 +21,7 @@ class Command(BaseCommand):
         x=[]
         for excel in excelek:
             #print(f"{excelekmappa}\{excel}")
-             nyitott = pd.read_excel(f"{excelekmappa}\{excel}")
+             nyitott = pd.read_excel(f"{excelekmappa}\\{excel}")
              df = pd.DataFrame(nyitott)
              if df["Ár"].isna().all():
                  y.append(0)
